@@ -1,0 +1,3 @@
+include ':coreui'
+include ':app'
+rootProject.name = "SuitsWar"
