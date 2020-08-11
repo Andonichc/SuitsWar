@@ -36,6 +36,7 @@ android {
 dependencies {
 
   implementation(project(':coreui'))
+  implementation(project(':game'))
 
   implementation Deps.kotlinStdlib
 

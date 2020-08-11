@@ -1,6 +1,7 @@
 package com.andcch.suitswar.di
 
 import android.app.Application
+import com.andcch.game.di.GameFeatureModule
 import com.andcch.suitswar.SuitsWarApp
 import dagger.BindsInstance
 import dagger.Component
@@ -11,7 +12,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules = [
-        AndroidInjectionModule::class, AndroidSupportInjectionModule::class
+        AndroidInjectionModule::class, AndroidSupportInjectionModule::class, GameFeatureModule::class
     ]
 )
 interface AppComponent {
