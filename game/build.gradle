@@ -33,6 +33,10 @@ android {
     }
 }
 
+tasks.withType(Test) {
+    useJUnitPlatform()
+}
+
 dependencies {
 
     implementation(project(':coreui'))
@@ -42,5 +46,11 @@ dependencies {
     //region dagger
     kapt Deps.daggerCompiler
     kapt Deps.daggerProcessor
+    //endregion
+
+    //region tests
+    testImplementation TestDeps.junit
+    testImplementation TestDeps.mockito
+    testImplementation TestDeps.truth
     //endregion
 }

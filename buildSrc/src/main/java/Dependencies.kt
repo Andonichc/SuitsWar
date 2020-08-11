@@ -25,11 +25,9 @@ object PluginVersions {
 
 object TestingVersions {
     const val jUnit = "4.12"
-    const val jUnitParams = "1.1.1"
-    const val kotlinTest = "3.2.1"
-    const val mockito = "2.23.4"
+    const val mockito = "3.4.6"
     const val supportTest = "1.0.2"
-    const val truth = "0.42"
+    const val truth = "1.0.1"
 }
 
 object AppDeps {
@@ -63,7 +61,6 @@ object PluginDeps {
 object TestDeps {
     const val junit = "junit:junit:${TestingVersions.jUnit}"
     const val junitExt = "androidx.test.ext:junit:${TestingVersions.jUnit}"
-    const val kotlinTest = "io.kotlintest:kotlintest-runner-junit5:${TestingVersions.kotlinTest}"
     const val mockito = "org.mockito:mockito-core:${TestingVersions.mockito}"
     const val monitor = "com.android.support.test:monitor:${TestingVersions.supportTest}"
     const val rules = "com.android.support.test:rules:${TestingVersions.supportTest}"
