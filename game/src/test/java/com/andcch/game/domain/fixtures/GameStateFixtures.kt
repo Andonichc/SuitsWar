@@ -16,9 +16,15 @@ interface GameStateFixtures : PlayerFixtures, SuitsPriorityFixtures, RoundFixtur
             rounds = anyRounds
         )
 
-    val anyFinishedGame: GameState.Finished
+    val anyFinishedGameWithWinner: GameState.Finished.WithWinner
         get() = GameState.Finished.WithWinner(
             winnerName = anyPlayerName,
+            playerStatsList = anyPlayerStatsList,
+            rounds = anyRounds
+        )
+
+    val anyFinishedGameInTie: GameState.Finished.Tie
+        get() = GameState.Finished.Tie(
             playerStatsList = anyPlayerStatsList,
             rounds = anyRounds
         )

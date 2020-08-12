@@ -59,6 +59,7 @@ object PluginDeps {
 }
 
 object TestDeps {
+    const val androidTestMock = "android.test.mock"
     const val junit = "junit:junit:${TestingVersions.jUnit}"
     const val junitExt = "androidx.test.ext:junit:${TestingVersions.jUnit}"
     const val mockito = "org.mockito:mockito-core:${TestingVersions.mockito}"

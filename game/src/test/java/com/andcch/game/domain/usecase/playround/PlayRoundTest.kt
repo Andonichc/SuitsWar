@@ -98,12 +98,13 @@ class PlayRoundTest : GameStateFixtures {
                 playedCardsByPlayer
             )
         ).willReturn(anyUpdatedGameState)
-        given(finishedGameUpdater.updateGame(anyUpdatedGameState)).willReturn(anyFinishedGame)
+        given(finishedGameUpdater.updateGame(anyUpdatedGameState))
+            .willReturn(anyFinishedGameWithWinner)
         val useCase = buildUseCase()
 
         useCase.execute()
 
-        verify(gameRepository).saveGame(anyFinishedGame)
+        verify(gameRepository).saveGame(anyFinishedGameWithWinner)
     }
 
     private fun buildUseCase() =

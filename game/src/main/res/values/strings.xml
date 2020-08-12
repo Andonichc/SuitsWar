@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="round_winner">%1$s wins</string>
+    <string name="round_card_thrown">%1$s threw %2$s</string>
+    <string name="game_state_round">%1$s wins this round</string>
+    <string name="game_state_winner">%1$s wins this game!</string>
+    <string name="game_state_tie">Tie! Everybody wins?</string>
+    <string name="play_round">Play round!</string>
+
+    <!--SUITS-->
+    <string name="clubs_card">%1$s &#9827;</string>
+    <string name="diamonds_card">%1$s &#9830;</string>
+    <string name="hearts_card">%1$s &#9829;</string>
+    <string name="spades_card">%1$s &#9824;</string>
+</resources>
