@@ -2,19 +2,19 @@ package com.andcch.game.domain.fixtures
 
 import com.andcch.game.domain.fixtures.PlayerFixtures.Companion.anyPlayerName
 import com.andcch.game.domain.fixtures.PlayerFixtures.Companion.anySecondPlayerName
-import com.andcch.game.domain.model.Card
+import com.andcch.game.domain.model.PlayerCard
 import com.andcch.game.domain.model.Round
 
-interface RoundFixtures : CardFixtures {
+interface RoundFixtures : PlayerCardFixtures {
 
     val anyRounds: List<Round>
         get() = listOf(
-            Round(anySetOfCards.take(2), anyPlayerName),
-            Round(anySetOfCards.takeLast(2), anySecondPlayerName)
+            Round(anyPlayerCards, anyPlayerName),
+            Round(anyOtherPlayerCards, anySecondPlayerName)
         )
 
     fun givenARound(
-        withPlayedCards: List<Card> = anySetOfCards.take(2),
+        withPlayedCards: List<PlayerCard> = anyPlayerCards,
         withWinnerName: String = anyPlayerName
-    ) = Round(playedCards = withPlayedCards, winnerName = withWinnerName)
+    ): Round = Round(playedCards = withPlayedCards, winnerName = withWinnerName)
 }

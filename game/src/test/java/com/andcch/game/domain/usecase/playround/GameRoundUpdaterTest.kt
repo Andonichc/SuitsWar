@@ -1,6 +1,9 @@
 package com.andcch.game.domain.usecase.playround
 
 import com.andcch.game.domain.fixtures.GameStateFixtures
+import com.andcch.game.domain.fixtures.PlayerFixtures.Companion.anyPlayerName
+import com.andcch.game.domain.fixtures.PlayerFixtures.Companion.anySecondPlayerName
+import com.andcch.game.domain.model.PlayerCard
 import com.andcch.game.domain.model.Round
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
@@ -9,16 +12,13 @@ class GameRoundUpdaterTest : GameStateFixtures {
 
     @Test
     fun `updateGame should update game without the last card of players playable pile`() {
-        val playedCards = listOf(
-            anyOngoingGame.players[0].playablePile.last(),
-            anyOngoingGame.players[1].playablePile.last()
-        )
+        val playedCardsByPlayer = givenPlayedCardsByPlayer()
         val updater = buildUpdater()
 
         val newGameState = updater.updateGame(
             gameState = anyOngoingGame,
             winnerPlayer = anyOngoingGame.players[0],
-            playedCards = playedCards
+            playedCardsByPlayer = playedCardsByPlayer
         )
 
         assertThat(newGameState.players[0].playablePile)
@@ -29,21 +29,18 @@ class GameRoundUpdaterTest : GameStateFixtures {
 
     @Test
     fun `updateGame should update game adding played cards to the winner player discard pile`() {
-        val playedCards = listOf(
-            anyOngoingGame.players[0].playablePile.last(),
-            anyOngoingGame.players[1].playablePile.last()
-        )
+        val playedCardsByPlayer = givenPlayedCardsByPlayer()
         val updater = buildUpdater()
 
         val newGameState = updater.updateGame(
             gameState = anyOngoingGame,
             winnerPlayer = anyOngoingGame.players[0],
-            playedCards = playedCards
+            playedCardsByPlayer = playedCardsByPlayer
         )
 
         assertThat(newGameState.players[0].discardPile)
             .isEqualTo(
-                anyOngoingGame.players[0].discardPile + playedCards
+                anyOngoingGame.players[0].discardPile + playedCardsByPlayer.keys
             )
         assertThat(newGameState.players[1].discardPile)
             .isEqualTo(anyOngoingGame.players[1].discardPile)
@@ -51,16 +48,13 @@ class GameRoundUpdaterTest : GameStateFixtures {
 
     @Test
     fun `updateGame should update game with the same suits priority`() {
-        val playedCards = listOf(
-            anyOngoingGame.players[0].playablePile.last(),
-            anyOngoingGame.players[1].playablePile.last()
-        )
+        val playedCardsByPlayer = givenPlayedCardsByPlayer()
         val updater = buildUpdater()
 
         val newGameState = updater.updateGame(
             gameState = anyOngoingGame,
             winnerPlayer = anyOngoingGame.players[0],
-            playedCards = playedCards
+            playedCardsByPlayer = playedCardsByPlayer
         )
 
         assertThat(newGameState.suitsPriority).isEqualTo(anyOngoingGame.suitsPriority)
@@ -68,23 +62,28 @@ class GameRoundUpdaterTest : GameStateFixtures {
 
     @Test
     fun `updateGame should update game adding a new round with the cards and the winner name`() {
-        val playedCards = listOf(
-            anyOngoingGame.players[0].playablePile.last(),
-            anyOngoingGame.players[1].playablePile.last()
-        )
+        val playedCardsByPlayer = givenPlayedCardsByPlayer()
         val updater = buildUpdater()
 
         val newGameState = updater.updateGame(
             gameState = anyOngoingGame,
             winnerPlayer = anyOngoingGame.players[0],
-            playedCards = playedCards
+            playedCardsByPlayer = playedCardsByPlayer
         )
 
         assertThat(newGameState.rounds)
             .isEqualTo(
                 anyOngoingGame.rounds +
                         Round(
-                            playedCards,
+                            listOf(
+                                PlayerCard(
+                                    anyPlayerName, anyOngoingGame.players[0].playablePile.last()
+                                ),
+                                PlayerCard(
+                                    anySecondPlayerName,
+                                    anyOngoingGame.players[1].playablePile.last()
+                                )
+                            ),
                             anyOngoingGame.players[0].name
                         )
             )

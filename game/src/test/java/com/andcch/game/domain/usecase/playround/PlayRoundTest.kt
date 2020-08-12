@@ -49,12 +49,10 @@ class PlayRoundTest : GameStateFixtures {
 
     @Test(expected = IllegalStateException::class)
     fun `execute should throw exception when winner card is not from any player`() {
-        val playedCards = listOf(
-            anyOngoingGame.players[0].playablePile.last(),
-            anyOngoingGame.players[1].playablePile.last()
-        )
+        val playedCardsByPlayer = givenPlayedCardsByPlayer()
         given(gameRepository.getGame()).willReturn(anyOngoingGame)
-        given(cardComparator.compare(playedCards, anySuitsPriority)).willReturn(anySetOfCards[2])
+        given(cardComparator.compare(playedCardsByPlayer.keys.toList(), anySuitsPriority))
+            .willReturn(anySetOfCards[2])
         val useCase = buildUseCase()
 
         useCase.execute()
@@ -62,15 +60,18 @@ class PlayRoundTest : GameStateFixtures {
 
     @Test
     fun `execute should save ongoing game when game can continue`() {
-        val playedCards = listOf(
-            anyOngoingGame.players[0].playablePile.last(),
-            anyOngoingGame.players[1].playablePile.last()
-        )
+        val playedCardsByPlayer = givenPlayedCardsByPlayer()
         val anyUpdatedGameState = givenAnOngoingGame()
         given(gameRepository.getGame()).willReturn(anyOngoingGame)
-        given(cardComparator.compare(playedCards, anySuitsPriority)).willReturn(playedCards[0])
-        given(gameRoundUpdater.updateGame(anyOngoingGame, anyOngoingGame.players[0], playedCards))
-            .willReturn(anyUpdatedGameState)
+        given(cardComparator.compare(playedCardsByPlayer.keys.toList(), anySuitsPriority))
+            .willReturn(playedCardsByPlayer.keys.first())
+        given(
+            gameRoundUpdater.updateGame(
+                anyOngoingGame,
+                anyOngoingGame.players[0],
+                playedCardsByPlayer
+            )
+        ).willReturn(anyUpdatedGameState)
         val useCase = buildUseCase()
 
         useCase.execute()
@@ -80,10 +81,7 @@ class PlayRoundTest : GameStateFixtures {
 
     @Test
     fun `execute should save finished game when game cannot continue`() {
-        val playedCards = listOf(
-            anyOngoingGame.players[0].playablePile.last(),
-            anyOngoingGame.players[1].playablePile.last()
-        )
+        val playedCardsByPlayer = givenPlayedCardsByPlayer()
         val anyUpdatedGameState = givenAnOngoingGame(
             withPlayers = listOf(
                 givenAPlayer(withPlayablePile = emptyList()),
@@ -91,9 +89,15 @@ class PlayRoundTest : GameStateFixtures {
             )
         )
         given(gameRepository.getGame()).willReturn(anyOngoingGame)
-        given(cardComparator.compare(playedCards, anySuitsPriority)).willReturn(playedCards[0])
-        given(gameRoundUpdater.updateGame(anyOngoingGame, anyOngoingGame.players[0], playedCards))
-            .willReturn(anyUpdatedGameState)
+        given(cardComparator.compare(playedCardsByPlayer.keys.toList(), anySuitsPriority))
+            .willReturn(playedCardsByPlayer.keys.first())
+        given(
+            gameRoundUpdater.updateGame(
+                anyOngoingGame,
+                anyOngoingGame.players[0],
+                playedCardsByPlayer
+            )
+        ).willReturn(anyUpdatedGameState)
         given(finishedGameUpdater.updateGame(anyUpdatedGameState)).willReturn(anyFinishedGame)
         val useCase = buildUseCase()
 

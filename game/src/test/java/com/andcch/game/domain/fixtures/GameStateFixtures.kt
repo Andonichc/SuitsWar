@@ -6,7 +6,8 @@ import com.andcch.game.domain.model.GameState
 import com.andcch.game.domain.model.Player
 import com.andcch.game.domain.model.Round
 
-interface GameStateFixtures : PlayerFixtures, SuitsPriorityFixtures, RoundFixtures, PlayerStatsFixtures {
+interface GameStateFixtures : PlayerFixtures, SuitsPriorityFixtures, RoundFixtures,
+    PlayerStatsFixtures {
 
     val anyOngoingGame: GameState.Ongoing
         get() = GameState.Ongoing(
@@ -26,10 +27,14 @@ interface GameStateFixtures : PlayerFixtures, SuitsPriorityFixtures, RoundFixtur
         withPlayers: List<Player> = anyPlayers,
         withSuitsPriority: Map<Card.Suit, Int> = anySuitsPriority,
         withRounds: List<Round> = anyRounds
-    ): GameState.Ongoing =
-        GameState.Ongoing(
-            players = withPlayers,
-            suitsPriority = withSuitsPriority,
-            rounds = withRounds
-        )
+    ): GameState.Ongoing = GameState.Ongoing(
+        players = withPlayers,
+        suitsPriority = withSuitsPriority,
+        rounds = withRounds
+    )
+
+    fun givenPlayedCardsByPlayer() = mapOf<Card, Player>(
+        anyOngoingGame.players[0].playablePile.last() to anyOngoingGame.players[0],
+        anyOngoingGame.players[1].playablePile.last() to anyOngoingGame.players[1]
+    )
 }

@@ -31,7 +31,7 @@ class PlayRound @Inject constructor(
             )
 
         val newGameState: GameState.Ongoing = gameRoundUpdater.updateGame(
-            currentGameState, winnerPlayer, cardsThrownByPlayer.keys.toList()
+            currentGameState, winnerPlayer, cardsThrownByPlayer
         )
 
         gameRepository.saveGame(
