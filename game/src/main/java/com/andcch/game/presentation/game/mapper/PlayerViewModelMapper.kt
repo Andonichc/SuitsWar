@@ -10,11 +10,11 @@ class PlayerViewModelMapper @Inject constructor() {
 
     fun transform(player: Player): PlayerViewModel = PlayerViewModel(
         name = player.name,
-        points = player.discardPile.size
+        points = player.discardPile.size.toString()
     )
 
     fun transform(player: PlayerStats): PlayerViewModel = PlayerViewModel(
         name = player.name,
-        points = player.points
+        points = player.points.toString()
     )
 }
