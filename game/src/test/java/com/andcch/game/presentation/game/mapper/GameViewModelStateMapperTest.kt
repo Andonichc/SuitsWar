@@ -31,6 +31,25 @@ class GameViewModelStateMapperTest : GameStateFixtures, PlayerViewModelFixtures,
     private lateinit var roundViewModelMapper: RoundViewModelMapper
 
     @Test
+    fun `transform should transform a new ongoing game`() {
+        mockPlayerMapper()
+        mockRoundMapper()
+        given(context.getString(R.string.game_state_start)).willReturn(ANY_STRING_RES)
+        val mapper = buildMapper()
+
+        val gameStateViewModel = mapper.transform(anyNewOngoingGame)
+
+        assertThat(gameStateViewModel).isEqualTo(
+            GameViewModelState(
+                players = amyViewModelPlayers,
+                rounds = emptyList(),
+                gameStateText = ANY_STRING_RES,
+                isPlayable = true
+            )
+        )
+    }
+
+    @Test
     fun `transform should transform an ongoing game`() {
         mockPlayerMapper()
         mockRoundMapper()

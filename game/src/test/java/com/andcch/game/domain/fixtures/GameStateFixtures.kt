@@ -16,6 +16,13 @@ interface GameStateFixtures : PlayerFixtures, SuitsPriorityFixtures, RoundFixtur
             rounds = anyRounds
         )
 
+    val anyNewOngoingGame: GameState.Ongoing
+        get() = GameState.Ongoing(
+            players = anyPlayers,
+            suitsPriority = anySuitsPriority,
+            rounds = emptyList()
+        )
+
     val anyFinishedGameWithWinner: GameState.Finished.WithWinner
         get() = GameState.Finished.WithWinner(
             winnerName = ANY_PLAYER_NAME,
