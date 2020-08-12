@@ -1,6 +1,6 @@
 package com.andcch.game.domain.usecase.startgame
 
-import com.andcch.game.domain.model.Game
+import com.andcch.game.domain.model.GameState
 import com.andcch.game.domain.repository.GameRepository
 import javax.inject.Inject
 
@@ -12,7 +12,7 @@ class StartGame @Inject constructor(
 
     fun execute() {
         gameRepository.saveGame(
-            Game(
+            GameState.Ongoing(
                 players = playersGenerator.generatePlayers(),
                 suitsPriority = suitsPriorityGenerator.generatePriority()
             )

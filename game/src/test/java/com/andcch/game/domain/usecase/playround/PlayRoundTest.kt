@@ -1,7 +1,7 @@
 package com.andcch.game.domain.usecase.playround
 
 import com.andcch.game.domain.fixtures.GameFixtures
-import com.andcch.game.domain.model.Game
+import com.andcch.game.domain.model.GameState
 import com.andcch.game.domain.model.Round
 import com.andcch.game.domain.repository.GameRepository
 import com.andcch.game.utils.argumentCaptor
@@ -25,98 +25,100 @@ class PlayRoundTest : GameFixtures {
 
     @Test
     fun `execute should save game without the last card of players playable pile`() {
-        val player1PlayableCard = anyNewGame.players[0].playablePile.last()
-        val player2PlayableCard = anyNewGame.players[1].playablePile.last()
-        given(gameRepository.getGame()).willReturn(anyNewGame)
+        val player1PlayableCard = anyOngoingGame.players[0].playablePile.last()
+        val player2PlayableCard = anyOngoingGame.players[1].playablePile.last()
+        given(gameRepository.getGame()).willReturn(anyOngoingGame)
         given(
             cardComparator.compare(
                 listOf(player1PlayableCard, player2PlayableCard),
                 anySuitsPriority
             )
         ).willReturn(player1PlayableCard)
-        val savedGameCaptor = argumentCaptor<Game>()
+        val savedGameCaptor = argumentCaptor<GameState>()
         val useCase = buildUseCase()
 
         useCase.execute()
 
         verify(gameRepository).saveGame(savedGameCaptor.safeCapture())
-        val savedGame = savedGameCaptor.value
+        val savedGame = savedGameCaptor.value as GameState.Ongoing
         assertThat(savedGame.players[0].playablePile)
-            .isEqualTo(anyNewGame.players[0].playablePile.dropLast(1))
+            .isEqualTo(anyOngoingGame.players[0].playablePile.dropLast(1))
         assertThat(savedGame.players[1].playablePile)
-            .isEqualTo(anyNewGame.players[1].playablePile.dropLast(1))
+            .isEqualTo(anyOngoingGame.players[1].playablePile.dropLast(1))
     }
 
     @Test
     fun `execute should save game adding played cards to the winner player discard pile`() {
-        val player1PlayableCard = anyNewGame.players[0].playablePile.last()
-        val player2PlayableCard = anyNewGame.players[1].playablePile.last()
-        given(gameRepository.getGame()).willReturn(anyNewGame)
+        val player1PlayableCard = anyOngoingGame.players[0].playablePile.last()
+        val player2PlayableCard = anyOngoingGame.players[1].playablePile.last()
+        given(gameRepository.getGame()).willReturn(anyOngoingGame)
         given(
             cardComparator.compare(
                 listOf(player1PlayableCard, player2PlayableCard),
                 anySuitsPriority
             )
         ).willReturn(player1PlayableCard)
-        val savedGameCaptor = argumentCaptor<Game>()
+        val savedGameCaptor = argumentCaptor<GameState>()
         val useCase = buildUseCase()
 
         useCase.execute()
 
         verify(gameRepository).saveGame(savedGameCaptor.safeCapture())
-        val savedGame = savedGameCaptor.value
+        val savedGame = savedGameCaptor.value as GameState.Ongoing
         assertThat(savedGame.players[0].discardPile)
             .isEqualTo(
-                anyNewGame.players[0].discardPile + player1PlayableCard + player2PlayableCard
+                anyOngoingGame.players[0].discardPile +
+                        player1PlayableCard +
+                        player2PlayableCard
             )
-        assertThat(savedGame.players[1].discardPile).isEqualTo(anyNewGame.players[1].discardPile)
+        assertThat(savedGame.players[1].discardPile).isEqualTo(anyOngoingGame.players[1].discardPile)
     }
 
     @Test
     fun `execute should save game with the same suits priority`() {
-        val player1PlayableCard = anyNewGame.players[0].playablePile.last()
-        val player2PlayableCard = anyNewGame.players[1].playablePile.last()
-        given(gameRepository.getGame()).willReturn(anyNewGame)
+        val player1PlayableCard = anyOngoingGame.players[0].playablePile.last()
+        val player2PlayableCard = anyOngoingGame.players[1].playablePile.last()
+        given(gameRepository.getGame()).willReturn(anyOngoingGame)
         given(
             cardComparator.compare(
                 listOf(player1PlayableCard, player2PlayableCard),
                 anySuitsPriority
             )
         ).willReturn(player1PlayableCard)
-        val savedGameCaptor = argumentCaptor<Game>()
+        val savedGameCaptor = argumentCaptor<GameState>()
         val useCase = buildUseCase()
 
         useCase.execute()
 
         verify(gameRepository).saveGame(savedGameCaptor.safeCapture())
-        val savedGame = savedGameCaptor.value
-        assertThat(savedGame.suitsPriority).isEqualTo(anyNewGame.suitsPriority)
+        val savedGame = savedGameCaptor.value as GameState.Ongoing
+        assertThat(savedGame.suitsPriority).isEqualTo(anyOngoingGame.suitsPriority)
     }
 
     @Test
     fun `execute should save game adding a new round with the cards and the winner name`() {
-        val player1PlayableCard = anyNewGame.players[0].playablePile.last()
-        val player2PlayableCard = anyNewGame.players[1].playablePile.last()
-        given(gameRepository.getGame()).willReturn(anyNewGame)
+        val player1PlayableCard = anyOngoingGame.players[0].playablePile.last()
+        val player2PlayableCard = anyOngoingGame.players[1].playablePile.last()
+        given(gameRepository.getGame()).willReturn(anyOngoingGame)
         given(
             cardComparator.compare(
                 listOf(player1PlayableCard, player2PlayableCard),
                 anySuitsPriority
             )
         ).willReturn(player1PlayableCard)
-        val savedGameCaptor = argumentCaptor<Game>()
+        val savedGameCaptor = argumentCaptor<GameState>()
         val useCase = buildUseCase()
 
         useCase.execute()
 
         verify(gameRepository).saveGame(savedGameCaptor.safeCapture())
-        val savedGame = savedGameCaptor.value
+        val savedGame = savedGameCaptor.value as GameState.Ongoing
         assertThat(savedGame.rounds)
             .isEqualTo(
-                anyNewGame.rounds +
+                anyOngoingGame.rounds +
                         Round(
                             listOf(player1PlayableCard, player2PlayableCard),
-                            anyNewGame.players[0].name
+                            anyOngoingGame.players[0].name
                         )
             )
     }
@@ -132,7 +134,7 @@ class PlayRoundTest : GameFixtures {
     @Test(expected = IllegalStateException::class)
     fun `execute should throw exception when a player doesn't have cards to play`() {
         given(gameRepository.getGame()).willReturn(
-            givenAGame(
+            givenAnOngoingGame(
                 withPlayers = listOf(
                     givenAPlayer(withPlayablePile = emptyList())
                 )
@@ -145,9 +147,9 @@ class PlayRoundTest : GameFixtures {
 
     @Test(expected = IllegalStateException::class)
     fun `execute should throw exception when winner card is not from any player`() {
-        val player1PlayableCard = anyNewGame.players[0].playablePile.last()
-        val player2PlayableCard = anyNewGame.players[1].playablePile.last()
-        given(gameRepository.getGame()).willReturn(anyNewGame)
+        val player1PlayableCard = anyOngoingGame.players[0].playablePile.last()
+        val player2PlayableCard = anyOngoingGame.players[1].playablePile.last()
+        given(gameRepository.getGame()).willReturn(anyOngoingGame)
         given(
             cardComparator.compare(
                 listOf(player1PlayableCard, player2PlayableCard),

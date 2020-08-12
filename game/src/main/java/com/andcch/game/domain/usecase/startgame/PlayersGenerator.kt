@@ -20,7 +20,7 @@ class PlayersGenerator @Inject constructor(
 
         return (0 until NUMBER_OF_PLAYERS).map { playerNumber ->
             Player(
-                name = "Player $playerNumber",
+                name = "Player ${playerNumber.inc()}",
                 playablePile = shuffledCards.subList(
                     initialCardsPerPlayer * playerNumber,
                     min(initialCardsPerPlayer * playerNumber.inc(), shuffledCards.size)

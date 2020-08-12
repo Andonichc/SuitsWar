@@ -2,7 +2,7 @@ package com.andcch.game.domain.usecase.playround
 
 import com.andcch.game.domain.extension.dropLastElement
 import com.andcch.game.domain.model.Card
-import com.andcch.game.domain.model.Game
+import com.andcch.game.domain.model.GameState
 import com.andcch.game.domain.model.Player
 import com.andcch.game.domain.model.Round
 import com.andcch.game.domain.repository.GameRepository
@@ -14,8 +14,8 @@ class PlayRound @Inject constructor(
 ) {
 
     fun execute() {
-        val game = gameRepository.getGame()
-            ?: throw IllegalStateException("Cannot play a round when a game has not started!")
+        val game = gameRepository.getGame() as? GameState.Ongoing
+            ?: throw IllegalStateException("Cannot play a round when there's no game going!")
 
         val cardsThrownByPlayer: Map<Card, Player> = game.throwCards()
 
@@ -35,11 +35,11 @@ class PlayRound @Inject constructor(
     }
 
     private fun updateGame(
-        oldGame: Game,
+        oldGame: GameState.Ongoing,
         winnerPlayer: Player,
         cardsPlayed: List<Card>
     ) {
-        val newGame: Game = oldGame.copy(
+        val newGame: GameState = oldGame.copy(
             players = oldGame.players.map {
                 it.copy(
                     playablePile = it.playablePile.dropLastElement(),
@@ -58,7 +58,7 @@ class PlayRound @Inject constructor(
         gameRepository.saveGame(newGame)
     }
 
-    private fun Game.throwCards(): Map<Card, Player> = mutableMapOf<Card, Player>().apply {
+    private fun GameState.Ongoing.throwCards(): Map<Card, Player> = mutableMapOf<Card, Player>().apply {
         players.forEach { player ->
             put(player.throwCard(), player)
         }

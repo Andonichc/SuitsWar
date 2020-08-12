@@ -1,16 +1,17 @@
 package com.andcch.game.domain.fixtures
 
 import com.andcch.game.domain.model.Card
-import com.andcch.game.domain.model.Game
+import com.andcch.game.domain.model.GameState
 import com.andcch.game.domain.model.Player
 
 interface GameFixtures : PlayerFixtures, SuitsPriorityFixtures {
 
-    val anyNewGame: Game
-        get() = Game(players = anyPlayers, suitsPriority = anySuitsPriority)
+    val anyOngoingGame: GameState.Ongoing
+        get() = GameState.Ongoing(players = anyPlayers, suitsPriority = anySuitsPriority)
 
-    fun givenAGame(
+    fun givenAnOngoingGame(
         withPlayers: List<Player> = anyPlayers,
         withSuitsPriority: Map<Card.Suit, Int> = anySuitsPriority
-    ): Game = Game(players = withPlayers, suitsPriority = withSuitsPriority)
+    ): GameState.Ongoing =
+        GameState.Ongoing(players = withPlayers, suitsPriority = withSuitsPriority)
 }

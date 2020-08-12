@@ -2,7 +2,7 @@ package com.andcch.game.domain.usecase.startgame
 
 import com.andcch.game.domain.fixtures.PlayerFixtures
 import com.andcch.game.domain.fixtures.SuitsPriorityFixtures
-import com.andcch.game.domain.model.Game
+import com.andcch.game.domain.model.GameState
 import com.andcch.game.domain.repository.GameRepository
 import com.andcch.game.utils.eq
 import org.junit.Test
@@ -33,7 +33,7 @@ class StartGameTest : PlayerFixtures, SuitsPriorityFixtures {
         useCase.execute()
 
         verify(gameRepository).saveGame(
-            eq(Game(players = anyPlayers, suitsPriority = anySuitsPriority))
+            eq(GameState.Ongoing(players = anyPlayers, suitsPriority = anySuitsPriority))
         )
     }
 

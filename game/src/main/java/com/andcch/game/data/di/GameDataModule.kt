@@ -3,7 +3,7 @@ package com.andcch.game.data.di
 import com.andcch.game.data.cache.InMemoryObservableItemCache
 import com.andcch.game.data.cache.ObservableItemCache
 import com.andcch.game.data.repository.GameRepositoryImpl
-import com.andcch.game.domain.model.Game
+import com.andcch.game.domain.model.GameState
 import com.andcch.game.domain.repository.GameRepository
 import dagger.Binds
 import dagger.Module
@@ -20,6 +20,6 @@ abstract class GameDataModule {
 
         @Provides
         @Singleton
-        fun provideGameCache(): ObservableItemCache<Game> = InMemoryObservableItemCache()
+        fun provideGameCache(): ObservableItemCache<GameState> = InMemoryObservableItemCache()
     }
 }
