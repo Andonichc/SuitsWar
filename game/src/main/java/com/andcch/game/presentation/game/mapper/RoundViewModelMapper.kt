@@ -6,9 +6,10 @@ import com.andcch.game.R
 import com.andcch.game.domain.model.PlayerCard
 import com.andcch.game.domain.model.Round
 import com.andcch.game.presentation.game.model.RoundViewModel
+import javax.inject.Inject
 
 // TODO Tests for this class are missing due to timing
-class RoundViewModelMapper constructor(
+class RoundViewModelMapper @Inject constructor(
     @ForApplication private val context: Context,
     private val cardTextProvider: CardTextProvider
 ) {

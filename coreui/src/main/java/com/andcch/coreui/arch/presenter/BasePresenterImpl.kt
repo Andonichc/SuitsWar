@@ -3,7 +3,6 @@ package com.andcch.coreui.arch.presenter
 import com.andcch.coreui.arch.view.BasePresenter
 import com.andcch.coreui.arch.view.BaseView
 import com.andcch.coreui.coroutines.Dispatchers
-import com.andcch.coreui.coroutines.DispatchersImpl
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -13,7 +12,7 @@ import kotlin.coroutines.CoroutineContext
 
 abstract class BasePresenterImpl<V : BaseView>(
     protected val view: V,
-    protected val dispatchers: Dispatchers = DispatchersImpl
+    dispatchers: Dispatchers
 ) : BasePresenter, CoroutineScope {
 
     private val job: Job = SupervisorJob()

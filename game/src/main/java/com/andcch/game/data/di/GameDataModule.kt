@@ -14,6 +14,7 @@ import javax.inject.Singleton
 abstract class GameDataModule {
 
     @Binds
+    @Singleton
     abstract fun bindGameRepository(gameRepositoryImpl: GameRepositoryImpl): GameRepository
 
     companion object {

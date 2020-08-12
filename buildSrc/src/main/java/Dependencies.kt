@@ -1,4 +1,3 @@
-
 object Versions {
     // Build config
     const val minSDK = 21
@@ -16,6 +15,7 @@ object LibrariesVersions {
     const val javaxAnnotation = "1"
     const val coroutines = "1.3.8"
     const val material = "1.1.0"
+    const val constraintLayout = "1.1.3"
 }
 
 object PluginVersions {
@@ -32,29 +32,36 @@ object TestingVersions {
 
 object AppDeps {
     const val appCompat = "androidx.appcompat:appcompat:${LibrariesVersions.appCompat}"
+    const val constraintLayout =
+        "androidx.constraintlayout:constraintlayout:${LibrariesVersions.constraintLayout}"
     const val materialDesign = "com.google.android.material:material:${LibrariesVersions.material}"
-    const val androidAnnotations = "androidx.annotation:androidx.annotation:${LibrariesVersions.androidAnnotation}"
+    const val androidAnnotations =
+        "androidx.annotation:androidx.annotation:${LibrariesVersions.androidAnnotation}"
     const val daggerAndroid = "com.google.dagger:dagger-android:${LibrariesVersions.dagger}"
     const val daggerSupport = "com.google.dagger:dagger-android-support:${LibrariesVersions.dagger}"
-    const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${LibrariesVersions.coroutines}"
+    const val coroutinesAndroid =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-android:${LibrariesVersions.coroutines}"
 }
 
 object Deps {
     const val javaxAnnotation = "javax.inject:javax.inject:${LibrariesVersions.javaxAnnotation}"
     const val kotlinStdlib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
-    const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${LibrariesVersions.coroutines}"
+    const val coroutinesCore =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-core:${LibrariesVersions.coroutines}"
     const val coroutinesCommon =
         "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${LibrariesVersions.coroutines}"
     const val coroutinesReactive =
         "org.jetbrains.kotlinx:kotlinx-coroutines-reactive:${LibrariesVersions.coroutines}"
     const val dagger = "com.google.dagger:dagger:${LibrariesVersions.dagger}"
     const val daggerCompiler = "com.google.dagger:dagger-compiler:${LibrariesVersions.dagger}"
-    const val daggerProcessor = "com.google.dagger:dagger-android-processor:${LibrariesVersions.dagger}"
+    const val daggerProcessor =
+        "com.google.dagger:dagger-android-processor:${LibrariesVersions.dagger}"
 }
 
 object PluginDeps {
     const val gradlePlugin = "com.android.tools.build:gradle:${PluginVersions.gradle}"
-    const val gradleDepsPlugin = "com.github.ben-manes:gradle-versions-plugin:${PluginVersions.gradleDependencies}"
+    const val gradleDepsPlugin =
+        "com.github.ben-manes:gradle-versions-plugin:${PluginVersions.gradleDependencies}"
     const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
 }
 
@@ -63,8 +70,7 @@ object TestDeps {
     const val junit = "junit:junit:${TestingVersions.jUnit}"
     const val junitExt = "androidx.test.ext:junit:${TestingVersions.jUnit}"
     const val mockito = "org.mockito:mockito-core:${TestingVersions.mockito}"
-    const val monitor = "com.android.support.test:monitor:${TestingVersions.supportTest}"
-    const val rules = "com.android.support.test:rules:${TestingVersions.supportTest}"
-    const val runner = "com.android.support.test:runner:${TestingVersions.supportTest}"
     const val truth = "com.google.truth:truth:${TestingVersions.truth}"
+    const val coroutinesTest =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-test:${LibrariesVersions.coroutines}"
 }
