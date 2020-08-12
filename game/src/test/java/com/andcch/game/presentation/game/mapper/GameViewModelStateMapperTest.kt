@@ -41,7 +41,7 @@ class GameViewModelStateMapperTest : GameStateFixtures, PlayerViewModelFixtures,
 
         assertThat(gameStateViewModel).isEqualTo(
             GameViewModelState(
-                players = amyViewModelPlayers,
+                players = anyViewModelPlayers,
                 rounds = emptyList(),
                 gameStateText = ANY_STRING_RES,
                 isPlayable = true
@@ -61,7 +61,7 @@ class GameViewModelStateMapperTest : GameStateFixtures, PlayerViewModelFixtures,
 
         assertThat(gameStateViewModel).isEqualTo(
             GameViewModelState(
-                players = amyViewModelPlayers,
+                players = anyViewModelPlayers,
                 rounds = anyViewModelRounds,
                 gameStateText = ANY_STRING_RES,
                 isPlayable = true
@@ -81,7 +81,7 @@ class GameViewModelStateMapperTest : GameStateFixtures, PlayerViewModelFixtures,
 
         assertThat(gameStateViewModel).isEqualTo(
             GameViewModelState(
-                players = amyViewModelPlayers,
+                players = anyViewModelPlayers,
                 rounds = anyViewModelRounds,
                 gameStateText = ANY_STRING_RES,
                 isPlayable = false
@@ -100,7 +100,7 @@ class GameViewModelStateMapperTest : GameStateFixtures, PlayerViewModelFixtures,
 
         assertThat(gameStateViewModel).isEqualTo(
             GameViewModelState(
-                players = amyViewModelPlayers,
+                players = anyViewModelPlayers,
                 rounds = anyViewModelRounds,
                 gameStateText = ANY_STRING_RES,
                 isPlayable = false
@@ -109,15 +109,15 @@ class GameViewModelStateMapperTest : GameStateFixtures, PlayerViewModelFixtures,
     }
 
     private fun mockPlayerMapper() {
-        given(playerViewModelMapper.transform(anyPlayers[0])).willReturn(amyViewModelPlayers[0])
-        given(playerViewModelMapper.transform(anyPlayers[1])).willReturn(amyViewModelPlayers[1])
+        given(playerViewModelMapper.transform(anyPlayers[0])).willReturn(anyViewModelPlayers[0])
+        given(playerViewModelMapper.transform(anyPlayers[1])).willReturn(anyViewModelPlayers[1])
     }
 
     private fun mockPlayerStatsMapper() {
         given(playerViewModelMapper.transform(anyPlayerStatsList[0]))
-            .willReturn(amyViewModelPlayers[0])
+            .willReturn(anyViewModelPlayers[0])
         given(playerViewModelMapper.transform(anyPlayerStatsList[1]))
-            .willReturn(amyViewModelPlayers[1])
+            .willReturn(anyViewModelPlayers[1])
     }
 
     private fun mockRoundMapper() {

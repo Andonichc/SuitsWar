@@ -5,7 +5,7 @@ import com.andcch.game.presentation.game.model.PlayerViewModel
 
 interface PlayerViewModelFixtures {
 
-    val amyViewModelPlayers: List<PlayerViewModel>
+    val anyViewModelPlayers: List<PlayerViewModel>
         get() = listOf(
             PlayerViewModel(ANY_PLAYER_NAME, "11"),
             PlayerViewModel(ANY_PLAYER_NAME, "7")
