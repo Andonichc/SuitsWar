@@ -59,4 +59,12 @@ interface CardFixtures {
             Card(value = Card.Value.K, suit = Card.Suit.SPADES),
             Card(value = Card.Value.A, suit = Card.Suit.SPADES)
         )
+
+    val anySetOfAces: List<Card>
+        get() = listOf(
+            Card(value = Card.Value.A, suit = Card.Suit.CLUBS),
+            Card(value = Card.Value.A, suit = Card.Suit.DIAMONDS),
+            Card(value = Card.Value.A, suit = Card.Suit.HEARTS),
+            Card(value = Card.Value.A, suit = Card.Suit.SPADES)
+        )
 }

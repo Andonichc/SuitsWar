@@ -1,5 +1,6 @@
 package com.andcch.game.domain.fixtures
 
+import com.andcch.game.domain.model.Card
 import com.andcch.game.domain.model.Player
 
 interface PlayerFixtures : CardFixtures {
@@ -13,13 +14,21 @@ interface PlayerFixtures : CardFixtures {
         get() = listOf(
             Player(
                 name = anyPlayerName,
-                playablePile = anySetOfCards
-                    .slice(0 until (anySetOfCards.size / 2))
+                playablePile = anySetOfCards.subList(0, anySetOfCards.size / 2)
             ),
             Player(
                 name = anySecondPlayerName,
-                playablePile = anySetOfCards
-                    .slice((anySetOfCards.size / 2) until anySetOfCards.size)
+                playablePile = anySetOfCards.subList(anySetOfCards.size / 2, anySetOfCards.size)
             )
         )
+
+    fun givenAPlayer(
+        withName: String = anyPlayerName,
+        withPlayablePile: List<Card> = anySetOfCards.subList(0, anySetOfCards.size / 2),
+        withDiscardPile: List<Card> = emptyList()
+    ): Player = Player(
+        name = withName,
+        playablePile = withPlayablePile,
+        discardPile = withDiscardPile
+    )
 }

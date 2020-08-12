@@ -10,4 +10,6 @@ interface GameRepository {
     fun saveGame(game: Game)
 
     fun ereaseGame()
+
+    fun getGame(): Game?
 }

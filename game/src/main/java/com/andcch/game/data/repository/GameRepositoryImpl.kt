@@ -16,6 +16,8 @@ class GameRepositoryImpl @Inject constructor(
         gameCache.put(game)
     }
 
+    override fun getGame(): Game? = gameCache.get()
+
     override fun ereaseGame() {
         gameCache.clear()
     }
