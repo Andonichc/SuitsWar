@@ -1,8 +1,8 @@
 package com.andcch.game.domain.usecase.startgame
 
 import com.andcch.game.domain.fixtures.CardFixtures
-import com.andcch.game.domain.fixtures.PlayerFixtures.Companion.anyPlayerName
-import com.andcch.game.domain.fixtures.PlayerFixtures.Companion.anySecondPlayerName
+import com.andcch.game.domain.fixtures.PlayerFixtures.Companion.ANY_PLAYER_NAME
+import com.andcch.game.domain.fixtures.PlayerFixtures.Companion.ANY_SECOND_PLAYER_NAME
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -32,8 +32,8 @@ class PlayersGeneratorTest : CardFixtures {
 
         val players = generator.generatePlayers()
 
-        assertThat(players[0].name).isEqualTo(anyPlayerName)
-        assertThat(players[1].name).isEqualTo(anySecondPlayerName)
+        assertThat(players[0].name).isEqualTo(ANY_PLAYER_NAME)
+        assertThat(players[1].name).isEqualTo(ANY_SECOND_PLAYER_NAME)
     }
 
     @Test

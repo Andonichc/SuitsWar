@@ -1,6 +1,6 @@
 package com.andcch.game.domain.fixtures
 
-import com.andcch.game.domain.fixtures.PlayerFixtures.Companion.anyPlayerName
+import com.andcch.game.domain.fixtures.PlayerFixtures.Companion.ANY_PLAYER_NAME
 import com.andcch.game.domain.model.Card
 import com.andcch.game.domain.model.GameState
 import com.andcch.game.domain.model.Player
@@ -18,7 +18,7 @@ interface GameStateFixtures : PlayerFixtures, SuitsPriorityFixtures, RoundFixtur
 
     val anyFinishedGameWithWinner: GameState.Finished.WithWinner
         get() = GameState.Finished.WithWinner(
-            winnerName = anyPlayerName,
+            winnerName = ANY_PLAYER_NAME,
             playerStatsList = anyPlayerStatsList,
             rounds = anyRounds
         )

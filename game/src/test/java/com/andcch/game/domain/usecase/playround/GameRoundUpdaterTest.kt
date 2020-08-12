@@ -1,8 +1,8 @@
 package com.andcch.game.domain.usecase.playround
 
 import com.andcch.game.domain.fixtures.GameStateFixtures
-import com.andcch.game.domain.fixtures.PlayerFixtures.Companion.anyPlayerName
-import com.andcch.game.domain.fixtures.PlayerFixtures.Companion.anySecondPlayerName
+import com.andcch.game.domain.fixtures.PlayerFixtures.Companion.ANY_PLAYER_NAME
+import com.andcch.game.domain.fixtures.PlayerFixtures.Companion.ANY_SECOND_PLAYER_NAME
 import com.andcch.game.domain.model.PlayerCard
 import com.andcch.game.domain.model.Round
 import com.google.common.truth.Truth.assertThat
@@ -77,10 +77,10 @@ class GameRoundUpdaterTest : GameStateFixtures {
                         Round(
                             listOf(
                                 PlayerCard(
-                                    anyPlayerName, anyOngoingGame.players[0].playablePile.last()
+                                    ANY_PLAYER_NAME, anyOngoingGame.players[0].playablePile.last()
                                 ),
                                 PlayerCard(
-                                    anySecondPlayerName,
+                                    ANY_SECOND_PLAYER_NAME,
                                     anyOngoingGame.players[1].playablePile.last()
                                 )
                             ),

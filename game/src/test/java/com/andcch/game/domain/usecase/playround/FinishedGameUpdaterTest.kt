@@ -1,8 +1,8 @@
 package com.andcch.game.domain.usecase.playround
 
 import com.andcch.game.domain.fixtures.GameStateFixtures
-import com.andcch.game.domain.fixtures.PlayerFixtures.Companion.anyPlayerName
-import com.andcch.game.domain.fixtures.PlayerFixtures.Companion.anySecondPlayerName
+import com.andcch.game.domain.fixtures.PlayerFixtures.Companion.ANY_PLAYER_NAME
+import com.andcch.game.domain.fixtures.PlayerFixtures.Companion.ANY_SECOND_PLAYER_NAME
 import com.andcch.game.domain.fixtures.PlayerStatsFixtures
 import com.andcch.game.domain.model.GameState
 import com.google.common.truth.Truth.assertThat
@@ -37,7 +37,7 @@ class FinishedGameUpdaterTest : GameStateFixtures, PlayerStatsFixtures {
 
         assertThat(finishedGameState).isEqualTo(
             GameState.Finished.WithWinner(
-                winnerName = anyPlayerName,
+                winnerName = ANY_PLAYER_NAME,
                 playerStatsList = anyPlayerStatsList.take(1),
                 rounds = anyOngoingGame.rounds
             )
@@ -53,7 +53,7 @@ class FinishedGameUpdaterTest : GameStateFixtures, PlayerStatsFixtures {
 
         assertThat(finishedGameState).isEqualTo(
             GameState.Finished.WithWinner(
-                winnerName = anyPlayerName,
+                winnerName = ANY_PLAYER_NAME,
                 playerStatsList = anyPlayerStatsList,
                 rounds = anyOngoingGame.rounds
             )
@@ -63,8 +63,8 @@ class FinishedGameUpdaterTest : GameStateFixtures, PlayerStatsFixtures {
     @Test
     fun `updateGame should finish in tie when two players have the highest score`() {
         val playerStatsList = listOf(
-            givenAPlayerStats(withName = anyPlayerName, withPoints = 26),
-            givenAPlayerStats(withName = anySecondPlayerName, withPoints = 26)
+            givenAPlayerStats(withName = ANY_PLAYER_NAME, withPoints = 26),
+            givenAPlayerStats(withName = ANY_SECOND_PLAYER_NAME, withPoints = 26)
         )
         given(playerStatsMapper.transform(anyOngoingGame.players)).willReturn(playerStatsList)
         val updater = buildUpdater()
