@@ -18,32 +18,40 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="4dp"
-        app:layout_constraintBottom_toTopOf="@id/tvGameStatus"
         android:background="@drawable/shadow_gradient"
-        />
+        app:layout_constraintBottom_toTopOf="@id/tvGameStatus" />
 
     <TextView
         android:id="@+id/tvGameStatus"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
         android:gravity="center"
+        android:maxLines="2"
+        android:paddingTop="@dimen/small_space"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         app:layout_constraintBottom_toTopOf="@id/rvPlayers"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:paddingTop="@dimen/small_space"
         tools:text="Player 1 wins this round!" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPlayers"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/fabReset"
+        app:layout_constraintBottom_toTopOf="@id/barrierButtons"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         tools:layoutManager="LinearLayoutManager"
         tools:listitem="@layout/item_player"
         tools:orientation="horizontal" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrierButtons"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:barrierDirection="top"
+        app:constraint_referenced_ids="btnPlayRound, fabReset" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnPlayRound"
@@ -60,10 +68,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/default_space"
+        android:contentDescription="@string/restart_button"
         android:src="@drawable/icv_renew"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:contentDescription="@string/restart_button"/>
+        app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
