@@ -41,9 +41,9 @@ class GameViewModelStateMapperTest : GameStateFixtures, PlayerViewModelFixtures,
 
         assertThat(gameStateViewModel).isEqualTo(
             GameViewModelState(
-                players = anyViewModelPlayers,
+                players = anyPlayerViewModels,
                 rounds = emptyList(),
-                gameStateText = ANY_STRING_RES,
+                gameStatusText = ANY_STRING_RES,
                 isPlayable = true
             )
         )
@@ -61,9 +61,9 @@ class GameViewModelStateMapperTest : GameStateFixtures, PlayerViewModelFixtures,
 
         assertThat(gameStateViewModel).isEqualTo(
             GameViewModelState(
-                players = anyViewModelPlayers,
-                rounds = anyViewModelRounds,
-                gameStateText = ANY_STRING_RES,
+                players = anyPlayerViewModels,
+                rounds = anyRoundViewModels,
+                gameStatusText = ANY_STRING_RES,
                 isPlayable = true
             )
         )
@@ -81,9 +81,9 @@ class GameViewModelStateMapperTest : GameStateFixtures, PlayerViewModelFixtures,
 
         assertThat(gameStateViewModel).isEqualTo(
             GameViewModelState(
-                players = anyViewModelPlayers,
-                rounds = anyViewModelRounds,
-                gameStateText = ANY_STRING_RES,
+                players = anyPlayerViewModels,
+                rounds = anyRoundViewModels,
+                gameStatusText = ANY_STRING_RES,
                 isPlayable = false
             )
         )
@@ -100,29 +100,29 @@ class GameViewModelStateMapperTest : GameStateFixtures, PlayerViewModelFixtures,
 
         assertThat(gameStateViewModel).isEqualTo(
             GameViewModelState(
-                players = anyViewModelPlayers,
-                rounds = anyViewModelRounds,
-                gameStateText = ANY_STRING_RES,
+                players = anyPlayerViewModels,
+                rounds = anyRoundViewModels,
+                gameStatusText = ANY_STRING_RES,
                 isPlayable = false
             )
         )
     }
 
     private fun mockPlayerMapper() {
-        given(playerViewModelMapper.transform(anyPlayers[0])).willReturn(anyViewModelPlayers[0])
-        given(playerViewModelMapper.transform(anyPlayers[1])).willReturn(anyViewModelPlayers[1])
+        given(playerViewModelMapper.transform(anyPlayers[0])).willReturn(anyPlayerViewModels[0])
+        given(playerViewModelMapper.transform(anyPlayers[1])).willReturn(anyPlayerViewModels[1])
     }
 
     private fun mockPlayerStatsMapper() {
         given(playerViewModelMapper.transform(anyPlayerStatsList[0]))
-            .willReturn(anyViewModelPlayers[0])
+            .willReturn(anyPlayerViewModels[0])
         given(playerViewModelMapper.transform(anyPlayerStatsList[1]))
-            .willReturn(anyViewModelPlayers[1])
+            .willReturn(anyPlayerViewModels[1])
     }
 
     private fun mockRoundMapper() {
-        given(roundViewModelMapper.transform(anyRounds[0])).willReturn(anyViewModelRounds[0])
-        given(roundViewModelMapper.transform(anyRounds[1])).willReturn(anyViewModelRounds[1])
+        given(roundViewModelMapper.transform(anyRounds[0])).willReturn(anyRoundViewModels[0])
+        given(roundViewModelMapper.transform(anyRounds[1])).willReturn(anyRoundViewModels[1])
     }
 
     private fun buildMapper() =

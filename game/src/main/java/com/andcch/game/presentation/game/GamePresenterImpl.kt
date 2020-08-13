@@ -70,7 +70,7 @@ class GamePresenterImpl @Inject constructor(
         view.showRounds(gameState.rounds)
         view.scrollToBottom()
         view.showPlayers(gameState.players)
-        view.showGameStatusText(gameState.gameStateText)
+        view.showGameStatusText(gameState.gameStatusText)
         if (gameState.isPlayable) {
             view.enablePlayButton()
         } else {

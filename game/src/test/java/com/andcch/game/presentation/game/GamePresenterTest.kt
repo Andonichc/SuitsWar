@@ -81,7 +81,7 @@ class GamePresenterTest : GameStateFixtures, GameStateViewModelFixtures {
 
         presenter.onViewReady()
 
-        verify(view).showGameStatusText(anyPlayableGameStateViewModel.gameStateText)
+        verify(view).showGameStatusText(anyPlayableGameStateViewModel.gameStatusText)
     }
 
     @Test
@@ -165,7 +165,7 @@ class GamePresenterTest : GameStateFixtures, GameStateViewModelFixtures {
 
         presenter.onViewReady()
 
-        verify(view).showGameStatusText(anyPlayableGameStateViewModel.gameStateText)
+        verify(view).showGameStatusText(anyPlayableGameStateViewModel.gameStatusText)
     }
 
     @Test

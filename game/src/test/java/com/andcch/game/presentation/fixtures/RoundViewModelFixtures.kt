@@ -11,7 +11,7 @@ interface RoundViewModelFixtures {
         const val ANY_OTHER_ROUND_TEXT = "Player 2 threw J<3"
     }
 
-    val anyViewModelRounds: List<RoundViewModel>
+    val anyRoundViewModels: List<RoundViewModel>
         get() = listOf(
             RoundViewModel(winnerText = ANY_WINNER_TEXT, roundText = ANY_ROUND_TEXT),
             RoundViewModel(winnerText = ANY_OTHER_WINNER_TEXT, roundText = ANY_OTHER_ROUND_TEXT)

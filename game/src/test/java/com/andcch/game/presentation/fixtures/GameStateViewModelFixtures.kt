@@ -10,17 +10,17 @@ interface GameStateViewModelFixtures : PlayerViewModelFixtures, RoundViewModelFi
 
     val anyPlayableGameStateViewModel: GameViewModelState
         get() = GameViewModelState(
-            players = anyViewModelPlayers,
-            rounds = anyViewModelRounds,
-            gameStateText = ANY_GAME_STATE_TEXT,
+            players = anyPlayerViewModels,
+            rounds = anyRoundViewModels,
+            gameStatusText = ANY_GAME_STATE_TEXT,
             isPlayable = true
         )
 
     val anyNonPlayableGameStateViewModel: GameViewModelState
         get() = GameViewModelState(
-            players = anyViewModelPlayers,
-            rounds = anyViewModelRounds,
-            gameStateText = ANY_GAME_STATE_TEXT,
+            players = anyPlayerViewModels,
+            rounds = anyRoundViewModels,
+            gameStatusText = ANY_GAME_STATE_TEXT,
             isPlayable = false
         )
 }

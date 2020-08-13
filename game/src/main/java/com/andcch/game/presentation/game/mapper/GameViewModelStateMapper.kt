@@ -23,11 +23,11 @@ class GameViewModelStateMapper @Inject constructor(
         GameViewModelState(
             players = gameState.players.map(playerViewModelMapper::transform),
             rounds = gameState.rounds.map(roundViewModelMapper::transform),
-            gameStateText = getOnGoingGameStateText(gameState),
+            gameStatusText = getOnGoingGameStatusText(gameState),
             isPlayable = true
         )
 
-    private fun getOnGoingGameStateText(gameState: GameState.Ongoing): String =
+    private fun getOnGoingGameStatusText(gameState: GameState.Ongoing): String =
         if (gameState.hasNotStarted()) {
             context.getString(R.string.game_state_start)
         } else {
@@ -42,11 +42,11 @@ class GameViewModelStateMapper @Inject constructor(
         GameViewModelState(
             players = gameState.playerStatsList.map(playerViewModelMapper::transform),
             rounds = gameState.rounds.map(roundViewModelMapper::transform),
-            gameStateText = getFinishedGameStateText(gameState),
+            gameStatusText = getFinishedGameStatusText(gameState),
             isPlayable = false
         )
 
-    private fun getFinishedGameStateText(gameState: GameState.Finished): String =
+    private fun getFinishedGameStatusText(gameState: GameState.Finished): String =
         when (gameState) {
             is GameState.Finished.WithWinner ->
                 context.getString(R.string.game_state_winner, gameState.winnerName)
