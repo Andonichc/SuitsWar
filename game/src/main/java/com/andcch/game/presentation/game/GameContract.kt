@@ -1,5 +1,6 @@
 package com.andcch.game.presentation.game
 
+import androidx.annotation.StringRes
 import com.andcch.coreui.arch.view.BasePresenter
 import com.andcch.coreui.arch.view.BaseView
 import com.andcch.game.presentation.game.model.PlayerViewModel
@@ -12,6 +13,8 @@ interface GameView : BaseView {
     fun showPlayers(players: List<PlayerViewModel>)
 
     fun showGameStatusText(text: String)
+
+    fun showErrorMessage(@StringRes errorMessage: Int)
 
     fun disablePlayButton()
 

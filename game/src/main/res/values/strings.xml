@@ -14,4 +14,10 @@
     <string name="diamonds_card">%1$s&#9830;</string>
     <string name="hearts_card">%1$s&#9829;</string>
     <string name="spades_card">%1$s&#9824;</string>
+
+    <!--ERRORS-->
+    <string name="error_update_game">There was an error updating the game!</string>
+    <string name="error_play_round">There was an error playing a round!</string>
+    <string name="error_create_game">There was an error creating a new game!</string>
+
 </resources>

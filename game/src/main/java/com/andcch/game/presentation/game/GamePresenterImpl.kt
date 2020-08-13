@@ -2,6 +2,7 @@ package com.andcch.game.presentation.game
 
 import com.andcch.coreui.arch.presenter.BasePresenterImpl
 import com.andcch.coreui.coroutines.Dispatchers
+import com.andcch.game.R
 import com.andcch.game.domain.usecase.getgameupdates.GetGameUpdates
 import com.andcch.game.domain.usecase.getsavedgame.GetSavedGame
 import com.andcch.game.domain.usecase.playround.PlayRound
@@ -41,7 +42,7 @@ class GamePresenterImpl @Inject constructor(
     }
 
     override fun onPlayRoundTap() {
-        runJob {
+        runJob(onError = { view.showErrorMessage(R.string.error_play_round) }) {
             if (blockCalls) return@runJob
             blockCalls = true
             withContext(dispatchers.default) {
@@ -55,7 +56,7 @@ class GamePresenterImpl @Inject constructor(
     }
 
     private fun subscribeToGameUpdates() {
-        runJob {
+        runJob(onError = { view.showErrorMessage(R.string.error_update_game) }) {
             getGameUpdates.execute()
                 .map { gameState -> gameViewModelStateMapper.transform(gameState) }
                 .flowOn(dispatchers.default)
@@ -79,7 +80,7 @@ class GamePresenterImpl @Inject constructor(
     }
 
     private fun startNewGame() {
-        runJob {
+        runJob(onError = { view.showErrorMessage(R.string.error_create_game) }) {
             if (blockCalls) return@runJob
             blockCalls = true
             withContext(dispatchers.default) {
@@ -89,7 +90,7 @@ class GamePresenterImpl @Inject constructor(
     }
 
     private fun getLastGameState() {
-        runJob {
+        runJob(onError = { view.showErrorMessage(R.string.error_update_game) }) {
             val gameStateViewModel: GameViewModelState? = withContext(dispatchers.default) {
                 getSavedGame.execute()?.let(gameViewModelStateMapper::transform)
             }

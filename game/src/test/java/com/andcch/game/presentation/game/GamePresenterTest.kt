@@ -1,5 +1,6 @@
 package com.andcch.game.presentation.game
 
+import com.andcch.game.R
 import com.andcch.game.domain.fixtures.GameStateFixtures
 import com.andcch.game.domain.usecase.getgameupdates.GetGameUpdates
 import com.andcch.game.domain.usecase.getsavedgame.GetSavedGame
@@ -105,6 +106,16 @@ class GamePresenterTest : GameStateFixtures, GameStateViewModelFixtures {
 
         verify(view).disablePlayButton()
     }
+
+    @Test
+    fun `onViewReady should show error when game update throws exception`() {
+        given(getGameUpdates.execute()).willThrow(RuntimeException(""))
+        val presenter = buildPresenter()
+
+        presenter.onViewReady()
+
+        verify(view).showErrorMessage(R.string.error_update_game)
+    }
     //endregion
 
     //region onViewReady - clean start
@@ -116,6 +127,17 @@ class GamePresenterTest : GameStateFixtures, GameStateViewModelFixtures {
         presenter.onViewReady()
 
         verify(startGame).execute()
+    }
+
+    @Test
+    fun `onViewReady should show error when start game throws an exception`() {
+        given(startGame.execute()).willThrow(RuntimeException(""))
+        val presenter = buildPresenter()
+        presenter.onParamsProvided(cleanStart = true)
+
+        presenter.onViewReady()
+
+        verify(view).showErrorMessage(R.string.error_create_game)
     }
     //endregion
 
@@ -191,6 +213,19 @@ class GamePresenterTest : GameStateFixtures, GameStateViewModelFixtures {
 
         verify(view).disablePlayButton()
     }
+
+    @Test
+    fun `onViewReady should show error when starting from a non clean start and get saved game throws exception`() {
+        given(getGameUpdates.execute()).willReturn(flowOf(anyOngoingGame))
+        given(mapper.transform(anyOngoingGame)).willReturn(anyNonPlayableGameStateViewModel)
+        given(getSavedGame.execute()).willThrow(RuntimeException(""))
+        val presenter = buildPresenter()
+        presenter.onParamsProvided(cleanStart = false)
+
+        presenter.onViewReady()
+
+        verify(view).showErrorMessage(R.string.error_update_game)
+    }
     //endregion
 
     //region onPlayRoundTap
@@ -213,16 +248,36 @@ class GamePresenterTest : GameStateFixtures, GameStateViewModelFixtures {
 
         verifyNoInteractions(playRound)
     }
+
+    @Test
+    fun `onPlayRoundTap should show error when playRound throws an exception`() {
+        given(playRound.execute()).willThrow(RuntimeException(""))
+        val presenter = buildPresenter()
+
+        presenter.onPlayRoundTap()
+
+        verify(view).showErrorMessage(R.string.error_play_round)
+    }
     //endregion
 
     //region onResetGameTap
     @Test
-    fun `onResetGameTap should execute play round`() {
+    fun `onResetGameTap should execute start game`() {
         val presenter = buildPresenter()
 
         presenter.onResetGameTap()
 
         verify(startGame).execute()
+    }
+
+    @Test
+    fun `onResetGameTap should show error when start game throws an exception`() {
+        given(startGame.execute()).willThrow(RuntimeException(""))
+        val presenter = buildPresenter()
+
+        presenter.onResetGameTap()
+
+        verify(view).showErrorMessage(R.string.error_create_game)
     }
 
     @Test

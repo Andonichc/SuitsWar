@@ -1,6 +1,8 @@
 package com.andcch.game.presentation.game
 
 import android.os.Bundle
+import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.andcch.coreui.arch.view.BaseActivity
 import com.andcch.game.R
@@ -56,6 +58,10 @@ class GameActivity : BaseActivity<GamePresenter>(), GameView {
 
     override fun showGameStatusText(text: String) {
         tvGameStatus.text = text
+    }
+
+    override fun showErrorMessage(@StringRes errorMessage: Int) {
+        Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
     }
 
     override fun disablePlayButton() {
