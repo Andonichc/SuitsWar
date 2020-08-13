@@ -1,6 +1,7 @@
 package com.andcch.coreui.coroutines
 
 import kotlinx.coroutines.CoroutineDispatcher
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers as CoroutineDispatchers
 
 interface Dispatchers {
@@ -12,7 +13,7 @@ interface Dispatchers {
     val io: CoroutineDispatcher
 }
 
-object DispatchersImpl : Dispatchers {
+class DispatchersImpl @Inject constructor() : Dispatchers {
 
     override val default: CoroutineDispatcher = CoroutineDispatchers.Default
 
